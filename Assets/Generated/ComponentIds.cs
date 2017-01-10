@@ -10,16 +10,18 @@ public static class ComponentIds {
 
     public const int Coroutine = 0;
     public const int CoroutineQueue = 1;
-    public const int GameSettings = 2;
-    public const int Neighbors = 3;
-    public const int Node = 4;
-    public const int Position = 5;
+    public const int Exit = 2;
+    public const int GameSettings = 3;
+    public const int Neighbors = 4;
+    public const int Node = 5;
+    public const int Position = 6;
 
-    public const int TotalComponents = 6;
+    public const int TotalComponents = 7;
 
     public static readonly string[] componentNames = {
         "Coroutine",
         "CoroutineQueue",
+        "Exit",
         "GameSettings",
         "Neighbors",
         "Node",
@@ -29,6 +31,7 @@ public static class ComponentIds {
     public static readonly System.Type[] componentTypes = {
         typeof(Coroutine),
         typeof(CoroutineQueue),
+        typeof(Exit),
         typeof(GameSettings),
         typeof(NeighborsComponent),
         typeof(NodeComponent),

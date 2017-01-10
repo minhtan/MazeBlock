@@ -16,10 +16,20 @@ public class InitBoardSystem : IInitializeSystem, ISetPool {
 	{
 		var col = _pool.gameSettings.column;
 		var row = _pool.gameSettings.row;
+		var dist = _pool.gameSettings.distanceBtwNode;
 
 		for (int r = 0; r < row; r++) {
 			for (int c = 0; c < col; c++) {
-				_pool.CreateEntity ().AddPosition (r, c).AddNode (false);
+				var node = _pool.CreateEntity ();
+
+				node.AddPosition (r * dist, c * dist).AddNode (false);
+
+				if (r==0 && c==0) {
+					node.AddExit (Player.player1);
+				}
+				if (r==row-1 && c==col-1){
+					node.AddExit (Player.AI);	
+				}
 			}
 		}
 	}

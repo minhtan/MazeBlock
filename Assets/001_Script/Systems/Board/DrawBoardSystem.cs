@@ -34,7 +34,15 @@ public class DrawBoardSystem : IReactiveSystem {
 	#endregion
 
 	IEnumerator CreateView(Entity e){
-		var r = Resources.LoadAsync<GameObject> ("nodePrefab");
+		var prefToLoad = "nodePrefab";
+		if (e.hasExit) {
+			prefToLoad = "nodePrefabExit";
+		}else if ((e.position.x + e.position.z) % 2 == 0) {
+			prefToLoad = "nodePrefab";
+		} else {
+			prefToLoad = "nodePrefab1";
+		}
+		var r = Resources.LoadAsync<GameObject> (prefToLoad);
 		while(!r.isDone){
 			yield return null;
 		}

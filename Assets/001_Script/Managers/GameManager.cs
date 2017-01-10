@@ -33,9 +33,13 @@ public class GameManager : MonoBehaviour {
 		}
 
 		return systems
-			.Add(pools.pool.CreateSystem( new InitGameSystem () ))
-			.Add(pools.pool.CreateSystem( new InitBoardSystem () ))
+			.Add(pools.pool.CreateSystem( new CoroutineSystem () ))
+			.Add(pools.pool.CreateSystem( new CoroutineQueueSystem () ))
 
+			.Add(pools.pool.CreateSystem( new InitGameSystem () ))
+
+			.Add(pools.pool.CreateSystem( new InitBoardSystem () ))
+			.Add(pools.pool.CreateSystem( new DrawBoardSystem () ))
 			;
 	}
 }
