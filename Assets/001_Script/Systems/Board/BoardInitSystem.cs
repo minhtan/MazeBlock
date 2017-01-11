@@ -2,7 +2,7 @@
 using System.Collections;
 using Entitas;
 
-public class InitBoardSystem : IInitializeSystem, ISetPool {
+public class BoardInitSystem : IInitializeSystem, ISetPool {
 	#region ISetPool implementation
 	Pool _pool;
 	public void SetPool (Pool pool)
@@ -17,17 +17,17 @@ public class InitBoardSystem : IInitializeSystem, ISetPool {
 		var col = _pool.gameSettings.column;
 		var row = _pool.gameSettings.row;
 		var dist = _pool.gameSettings.distanceBtwNode;
+		Entity node;
 
 		for (int r = 0; r < row; r++) {
 			for (int c = 0; c < col; c++) {
-				var node = _pool.CreateEntity ();
+				node = _pool.CreateEntity ();
 
-				node.AddPosition (r * dist, c * dist).AddNode (false);
+				node.AddPosition (r * dist, c * dist).AddMoveCost(0f).AddCameFrom(null).AddNode (false);
 
 				if (r==0 && c==0) {
 					node.AddExit (Player.player1);
-				}
-				if (r==row-1 && c==col-1){
+				}else if (r==row-1 && c==col-1){
 					node.AddExit (Player.AI);	
 				}
 			}

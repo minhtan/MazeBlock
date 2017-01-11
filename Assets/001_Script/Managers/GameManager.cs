@@ -38,8 +38,13 @@ public class GameManager : MonoBehaviour {
 
 			.Add(pools.pool.CreateSystem( new InitGameSystem () ))
 
-			.Add(pools.pool.CreateSystem( new InitBoardSystem () ))
-			.Add(pools.pool.CreateSystem( new DrawBoardSystem () ))
+			.Add(pools.pool.CreateSystem( new BoardInitSystem () ))
+			.Add(pools.pool.CreateSystem( new BoardDrawSystem () ))
+
+			.Add(pools.pool.CreateSystem( new MoverInitSystem () ))
+			.Add(pools.pool.CreateSystem( new MoverDrawSystem () ))
+
+			.Add(pools.pool.CreateSystem( new PathfindingSystem () ))
 			;
 	}
 }
