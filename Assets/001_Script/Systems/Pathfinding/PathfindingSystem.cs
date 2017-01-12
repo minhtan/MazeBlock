@@ -5,7 +5,7 @@ using Priority_Queue;
 using System.Collections.Generic;
 using System.Linq;
 
-public class PathfindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
+public class PathFindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 	#region ISetPool implementation
 	Group _groupMover;
 	Group _groupExit;
@@ -34,15 +34,13 @@ public class PathfindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 	Queue<Entity> path;
 	public void Execute (System.Collections.Generic.List<Entity> entities)
 	{
-		if (_groupMover.count <= 0) {
-			return;
-		}
+		var turnEnded = entities.SingleEntity ();
 
-		var movers = _groupMover.GetEntities ();
-		var exits = _groupExit.GetEntities ();
 		Entity m;
 		Entity e;
-		var totalCost = 0f;
+		float totalCost;
+		var movers = _groupMover.GetEntities ();
+		var exits = _groupExit.GetEntities ();
 		for (int i = 0; i < movers.Length; i++) {
 			m = movers [i];
 
@@ -58,6 +56,9 @@ public class PathfindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 				}
 			}
 		}
+
+		_pool.CreateEntity ().IsFindPathDone (true);
+		_pool.DestroyEntity (turnEnded);
 	}
 
 	#endregion
@@ -66,7 +67,7 @@ public class PathfindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 
 	public TriggerOnEvent trigger {
 		get {
-			return Matcher.TurnEnd.OnEntityAdded ();
+			return Matcher.TurnEnded.OnEntityAdded ();
 		}
 	}
 
@@ -82,6 +83,7 @@ public class PathfindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 		exploredNodes.Add (start);
 
 		Entity current;
+		float cost;
 		while (frontier.Count > 0) {
 			current = frontier.Dequeue ();
 
@@ -92,7 +94,18 @@ public class PathfindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 			neighbors = current.neighbors.neighbors;
 			for (int i = 0; i < neighbors.Count; i++) {
 				var next = neighbors [i];
-				var newCost = current.moveCost.cost + next.moveCost.cost;
+
+				if (next.node.isBlocked) {
+					continue;
+				}
+
+				if ((next.position.x + next.position.z) - (current.position.x + current.position.z) == 1) {
+					cost = D;
+				} else {
+					cost = D2;
+				}
+
+				var newCost = current.moveCost.cost + cost;
 				if (!exploredNodes.Contains(next) || next.moveCost.cost > newCost) {
 					next.moveCost.cost = newCost;
 					next.cameFrom.origin = current;
@@ -104,7 +117,6 @@ public class PathfindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 					frontier.Enqueue (next, priority); //smaller priority go first
 				}
 			}
-
 
 		}
 

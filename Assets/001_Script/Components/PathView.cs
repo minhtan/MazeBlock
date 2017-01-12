@@ -2,6 +2,6 @@
 using System.Collections;
 using Entitas;
 
-public class TurnEnd : IComponent {
-	public Player player;
+public class PathView : IComponent {
+	public LineRenderer line;
 }

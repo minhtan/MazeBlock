@@ -32,6 +32,8 @@ public class BoardInitSystem : IInitializeSystem, ISetPool {
 				}
 			}
 		}
+
+		_pool.CreateEntity ().IsBoardSet (true);
 	}
 	#endregion
 }

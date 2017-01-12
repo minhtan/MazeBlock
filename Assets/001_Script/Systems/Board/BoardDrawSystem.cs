@@ -17,9 +17,12 @@ public class BoardDrawSystem : IReactiveSystem {
 	#region IReactiveExecuteSystem implementation
 	public void Execute (System.Collections.Generic.List<Entity> entities)
 	{
-		Entity e;
 		for (int i = 0; i < entities.Count; i++) {
-			e = entities [i];
+			var e = entities [i];
+
+			if (e.hasNodeView) {
+				Lean.LeanPool.Despawn (e.nodeView.view);
+			}
 
 			var prefToLoad = "nodePrefab";
 			if (e.node.isBlocked) {
@@ -33,7 +36,9 @@ public class BoardDrawSystem : IReactiveSystem {
 			}
 			var name = "node" + e.position.x + "/" + e.position.z;
 
-			e.AddCoroutineTask (e.CreateView(prefToLoad, name, _viewParent.transform), true);
+			e.AddCoroutineTask (e.CreateView(prefToLoad, name, (view) => {
+				e.ReplaceNodeView(view);
+			}, _viewParent.transform), true);
 		}
 	}
 	#endregion
