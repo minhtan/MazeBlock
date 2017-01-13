@@ -21,6 +21,7 @@ public class BoardDrawSystem : IReactiveSystem {
 			var e = entities [i];
 
 			if (e.hasNodeView) {
+				EntityLink.RemoveLink (e.nodeView.view);
 				Lean.LeanPool.Despawn (e.nodeView.view);
 			}
 
@@ -38,6 +39,7 @@ public class BoardDrawSystem : IReactiveSystem {
 
 			e.AddCoroutineTask (e.CreateView(prefToLoad, name, (view) => {
 				e.ReplaceNodeView(view);
+				EntityLink.AddLink(view, e);
 			}, _viewParent.transform), true);
 		}
 	}

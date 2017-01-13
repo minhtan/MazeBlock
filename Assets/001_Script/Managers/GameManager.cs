@@ -33,21 +33,26 @@ public class GameManager : MonoBehaviour {
 		}
 
 		return systems
-			.Add(pools.pool.CreateSystem( new CoroutineSystem () ))
-			.Add(pools.pool.CreateSystem( new CoroutineQueueSystem () ))
-
-			.Add(pools.pool.CreateSystem( new InitGameSystem () ))
-
-			.Add(pools.pool.CreateSystem( new BoardInitSystem () ))
-			.Add(pools.pool.CreateSystem( new BoardSetNeighborsSystem () ))
-			.Add(pools.pool.CreateSystem( new BoardDrawSystem () ))
-
-			.Add(pools.pool.CreateSystem( new MoverInitSystem () ))
-			.Add(pools.pool.CreateSystem( new MoverDrawSystem () ))
-
-			.Add(pools.pool.CreateSystem( new PathFindingSystem () ))
-			.Add(pools.pool.CreateSystem( new PathCreateViewSystem () ))
-			.Add(pools.pool.CreateSystem( new PathDrawSystem () ))
+				//Background systems
+				.Add(pools.pool.CreateSystem( new CoroutineSystem () ))
+				.Add(pools.pool.CreateSystem( new CoroutineQueueSystem () ))
+				//Input systems
+				.Add(pools.pool.CreateSystem( new InputCheckSystem () ))
+				.Add(pools.pool.CreateSystem( new InputUIListenerSystem () ))
+				//Set up systems
+				.Add(pools.pool.CreateSystem( new InitGameSystem () ))
+				//Board systems
+				.Add(pools.pool.CreateSystem( new BoardInitSystem () ))
+				.Add(pools.pool.CreateSystem( new BoardSetNeighborsSystem () ))
+				.Add(pools.pool.CreateSystem( new BoardDrawSystem () ))
+				.Add(pools.pool.CreateSystem( new BoardSetBlockSystem () ))
+				//Mover systems
+				.Add(pools.pool.CreateSystem( new MoverInitSystem () ))
+				.Add(pools.pool.CreateSystem( new MoverDrawSystem () ))
+				//Path systems
+				.Add(pools.pool.CreateSystem( new PathFindingSystem () ))
+				.Add(pools.pool.CreateSystem( new PathCreateViewSystem () ))
+				.Add(pools.pool.CreateSystem( new PathDrawSystem () ))
 			;
 	}
 }

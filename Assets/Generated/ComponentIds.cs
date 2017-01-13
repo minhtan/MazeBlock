@@ -15,18 +15,19 @@ public static class ComponentIds {
     public const int Exit = 4;
     public const int FindPathDone = 5;
     public const int GameSettings = 6;
-    public const int MoveCost = 7;
-    public const int Mover = 8;
-    public const int Neighbors = 9;
-    public const int Node = 10;
-    public const int NodeView = 11;
-    public const int Path = 12;
-    public const int PathView = 13;
-    public const int Position = 14;
-    public const int StandOn = 15;
-    public const int TurnEnded = 16;
+    public const int MouseClick = 7;
+    public const int MoveCost = 8;
+    public const int Mover = 9;
+    public const int Neighbors = 10;
+    public const int Node = 11;
+    public const int NodeView = 12;
+    public const int Path = 13;
+    public const int PathView = 14;
+    public const int Position = 15;
+    public const int StandOn = 16;
+    public const int TurnEnded = 17;
 
-    public const int TotalComponents = 17;
+    public const int TotalComponents = 18;
 
     public static readonly string[] componentNames = {
         "BoardSet",
@@ -36,6 +37,7 @@ public static class ComponentIds {
         "Exit",
         "FindPathDone",
         "GameSettings",
+        "MouseClick",
         "MoveCost",
         "Mover",
         "Neighbors",
@@ -56,6 +58,7 @@ public static class ComponentIds {
         typeof(Exit),
         typeof(FindPathDone),
         typeof(GameSettings),
+        typeof(MouseClick),
         typeof(MoveCost),
         typeof(Mover),
         typeof(NeighborsComponent),
