@@ -8,6 +8,10 @@ public class BoardSet : IComponent {
 }
 
 [Entitas.CodeGenerator.SingleEntity]
+public class DisableInput : IComponent {
+}
+
+[Entitas.CodeGenerator.SingleEntity]
 public class TurnEnded : IComponent {
 	public Player player;
 }
@@ -15,4 +19,9 @@ public class TurnEnded : IComponent {
 [Entitas.CodeGenerator.SingleEntity]
 public class FindPathDone : IComponent{
 	
+}
+
+[Entitas.CodeGenerator.SingleEntity]
+public class MouseClick : IComponent {
+	public Vector3 screenPosition;
 }

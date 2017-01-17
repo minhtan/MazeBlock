@@ -23,7 +23,9 @@ public class MoverDrawSystem : IReactiveSystem {
 			var prefToLoad = "moverPrefab";
 			var name = "mover";
 
-			e.AddCoroutineTask (e.CreateView(prefToLoad, name, _viewParent.transform), true);
+			e.AddCoroutineTask (e.CreateView(prefToLoad, name, (go) => {
+				e.AddView(go);
+			}, _viewParent.transform, ViewOrder.top), true);
 		}
 	}
 	#endregion

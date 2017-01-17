@@ -20,10 +20,8 @@ public class BoardSetBlockSystem : IReactiveSystem, ISetPool {
 		RaycastHit hitInfo;
 		if (Physics.Raycast (ray, out hitInfo)) {
 			var e = EntityLink.GetEntity (hitInfo.collider.gameObject);
-			if (e != null) {
-				if (!e.node.isBlocked) {
-					e.ReplaceNode (true);
-				}
+			if (e != null && !e.node.isBlocked && !e.isBeingStoodOn) {
+				e.AddLastBlocked (e);
 			}
 		}
 

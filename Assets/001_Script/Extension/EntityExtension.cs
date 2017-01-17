@@ -21,7 +21,7 @@ public static class EntityExtension {
 		return e;
 	}
 
-	public static IEnumerator CreateView(this Entity e, string prefToLoad, string name, Transform parent = null){
+	public static IEnumerator CreateView(this Entity e, string prefToLoad, string name, Transform parent = null, ViewOrder order = ViewOrder.middle){
 		var r = Resources.LoadAsync<GameObject> (prefToLoad);
 		while(!r.isDone){
 			yield return null;
@@ -29,13 +29,13 @@ public static class EntityExtension {
 
 		GameObject go = Lean.LeanPool.Spawn (r.asset as GameObject);
 		go.name = name;
-		go.transform.position = new Vector3 (e.position.x, 0, e.position.z);
+		go.transform.position = new Vector3 (e.position.x, (int)order * 0.1f, e.position.z);
 		if (parent != null) {
 			go.transform.SetParent (parent, false);
 		}
 	}
 
-	public static IEnumerator CreateView(this Entity e, string prefToLoad, string name, System.Action<GameObject> callback, Transform parent = null){
+	public static IEnumerator CreateView(this Entity e, string prefToLoad, string name, System.Action<GameObject> callback, Transform parent = null, ViewOrder order = ViewOrder.middle){
 		var r = Resources.LoadAsync<GameObject> (prefToLoad);
 		while(!r.isDone){
 			yield return null;
@@ -43,10 +43,18 @@ public static class EntityExtension {
 
 		GameObject go = Lean.LeanPool.Spawn (r.asset as GameObject);
 		go.name = name;
-		go.transform.position = new Vector3 (e.position.x, 0, e.position.z);
+		go.transform.position = new Vector3 (e.position.x, (int)order * 0.1f, e.position.z);
 		if (parent != null) {
 			go.transform.SetParent (parent, false);
 		}
 		callback (go);
+	}
+
+	public static bool IsReachedNode(this Entity e, Entity node){
+		if (e.position.x == node.position.x && e.position.z == node.position.z) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

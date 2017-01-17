@@ -17,18 +17,29 @@ public class MoverInitSystem : IInitializeSystem, ISetPool {
 	public void Initialize ()
 	{
 		var nodes = _pool.GetEntities (Matcher.Node);
-		var moverX = Mathf.CeilToInt (_pool.gameSettings.row / 2);
-		var moverZ = Mathf.CeilToInt (_pool.gameSettings.column / 2);
-		for (int i = 0; i < nodes.Length; i++) {
-			if (nodes[i].position.x == moverX && nodes[i].position.z == moverZ) {
-				_pool.CreateEntity ()
-					.AddPosition (nodes [i].position.x, nodes [i].position.z)
-					.AddStandOn(nodes[i])
-					.IsMover (true);
-				return;
-			}
-		}
+
+		CreateMover (nodes,
+			0,
+			0
+		).AddMover (Player.player1).AddGoal(_pool.FindExitNode(Player.AI));
+
+		CreateMover (nodes,
+			Mathf.CeilToInt (_pool.gameSettings.row-1), 
+			0
+		).AddMover (Player.AI).AddGoal(_pool.FindExitNode(Player.player1));
 	}
 
 	#endregion
+
+	Entity CreateMover(Entity[] nodes, int moverX, int moverZ){
+		for (int i = 0; i < nodes.Length; i++) {
+			if (nodes[i].position.x == moverX && nodes[i].position.z == moverZ) {
+				nodes [i].IsBeingStoodOn (true);
+				return _pool.CreateEntity ()
+					.AddPosition (nodes [i].position.x, nodes [i].position.z)
+					.AddStandOn (nodes[i]);
+			}
+		}
+		return null;
+	}
 }

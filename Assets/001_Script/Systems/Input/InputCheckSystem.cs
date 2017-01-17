@@ -16,7 +16,7 @@ public class InputCheckSystem : IExecuteSystem, ISetPool {
 	public void Execute ()
 	{
 		if (Input.GetMouseButtonUp(0)) {
-			_pool.CreateEntity ().AddMouseClick (Input.mousePosition);
+			_pool.SetMouseClick (Input.mousePosition);
 		}
 	}
 	#endregion

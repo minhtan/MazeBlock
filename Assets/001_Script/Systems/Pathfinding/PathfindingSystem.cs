@@ -25,7 +25,7 @@ public class PathFindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 	public void Initialize ()
 	{
 		D = _pool.gameSettings.distanceBtwNode;
-		D2 = _pool.gameSettings.distanceBtwNode * (Mathf.Sqrt (2f) / 2);
+		D2 = _pool.gameSettings.distanceBtwNode / (Mathf.Sqrt (2f) / 2);
 	}
 
 	#endregion
@@ -34,31 +34,24 @@ public class PathFindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 	Queue<Entity> path;
 	public void Execute (System.Collections.Generic.List<Entity> entities)
 	{
-		var turnEnded = entities.SingleEntity ();
+		var lastBlocked = entities.SingleEntity ();
 
 		Entity m;
-		Entity e;
-		float totalCost;
 		var movers = _groupMover.GetEntities ();
-		var exits = _groupExit.GetEntities ();
 		for (int i = 0; i < movers.Length; i++) {
 			m = movers [i];
 
-			for (int j = 0; j < exits.Length; j++) {
-				e = exits [j];
-
-				path = FindPath (m.standOn.node, e, D, D2, out totalCost);
-				if (j == 0) {
-					m.ReplacePath (path);
-					m.ReplaceMoveCost (totalCost);
-				} else if (m.moveCost.cost > totalCost) {
-					m.ReplacePath (path);
-				}
+			path = FindPath (m.standOn.node, m.goal.node, D, D2);
+			if (path == null) { // can not find path
+				lastBlocked.RemoveLastBlocked ();
+				return;
+			} else {
+				m.ReplacePath (path);
 			}
 		}
 
-		_pool.CreateEntity ().IsFindPathDone (true);
-		_pool.DestroyEntity (turnEnded);
+		lastBlocked.lastBlocked.node.ReplaceNode(true).RemoveLastBlocked ();
+		_pool.isFindPathDone = true;
 	}
 
 	#endregion
@@ -67,7 +60,7 @@ public class PathFindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 
 	public TriggerOnEvent trigger {
 		get {
-			return Matcher.TurnEnded.OnEntityAdded ();
+			return Matcher.LastBlocked.OnEntityAdded ();
 		}
 	}
 
@@ -76,7 +69,7 @@ public class PathFindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 	SimplePriorityQueue<Entity> frontier = new SimplePriorityQueue<Entity> ();
 	List<Entity> exploredNodes = new List<Entity> ();
 	List<Entity> neighbors;
-	Queue<Entity> FindPath(Entity start, Entity end, float D, float D2, out float totalCost){
+	Queue<Entity> FindPath(Entity start, Entity end, float D, float D2){
 		frontier.Clear ();
 		frontier.Enqueue (start, 0);
 		exploredNodes.Clear ();
@@ -88,14 +81,14 @@ public class PathFindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 			current = frontier.Dequeue ();
 
 			if (current == end) {
-				return ReconstructPath (ref end, ref start, out totalCost);
+				return ReconstructPath (ref end, ref start);
 			}
 
 			neighbors = current.neighbors.neighbors;
 			for (int i = 0; i < neighbors.Count; i++) {
 				var next = neighbors [i];
 
-				if (next.node.isBlocked) {
+				if (next.node.isBlocked || next.hasLastBlocked) {
 					continue;
 				}
 
@@ -120,7 +113,6 @@ public class PathFindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 
 		}
 
-		totalCost = 0;
 		return null;
 	}
 
@@ -130,17 +122,16 @@ public class PathFindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 		return D * (dx + dy) + (D2 - 2 * D) * Mathf.Min (dx, dy);
 	}
 
-	Queue<Entity> ReconstructPath(ref Entity goal, ref Entity start, out float totalCost){
-		totalCost = 0;
+	Queue<Entity> ReconstructPath(ref Entity goal, ref Entity start){
 		Entity current = goal;
 		Queue<Entity> path = new Queue<Entity> ();
 		path.Enqueue (current);
-		totalCost += current.moveCost.cost;
 
 		while (current != start) {
 			current = current.cameFrom.origin;
-			path.Enqueue (current);
-			totalCost += current.moveCost.cost;
+			if (current != start) {
+				path.Enqueue (current);
+			}
 
 			if (current == null) {
 				return null;

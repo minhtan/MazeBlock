@@ -8,66 +8,81 @@
 //------------------------------------------------------------------------------
 public static class ComponentIds {
 
-    public const int BoardSet = 0;
-    public const int CameFrom = 1;
-    public const int Coroutine = 2;
-    public const int CoroutineQueue = 3;
-    public const int Exit = 4;
-    public const int FindPathDone = 5;
-    public const int GameSettings = 6;
-    public const int MouseClick = 7;
-    public const int MoveCost = 8;
-    public const int Mover = 9;
-    public const int Neighbors = 10;
-    public const int Node = 11;
-    public const int NodeView = 12;
-    public const int Path = 13;
-    public const int PathView = 14;
-    public const int Position = 15;
-    public const int StandOn = 16;
-    public const int TurnEnded = 17;
+    public const int BeingStoodOn = 0;
+    public const int BoardSet = 1;
+    public const int CameFrom = 2;
+    public const int Coroutine = 3;
+    public const int CoroutineQueue = 4;
+    public const int DisableInput = 5;
+    public const int Exit = 6;
+    public const int FindPathDone = 7;
+    public const int GameSettings = 8;
+    public const int Goal = 9;
+    public const int LastBlocked = 10;
+    public const int MouseClick = 11;
+    public const int MoveCost = 12;
+    public const int Mover = 13;
+    public const int MoveTo = 14;
+    public const int Neighbors = 15;
+    public const int Node = 16;
+    public const int Path = 17;
+    public const int PathView = 18;
+    public const int Position = 19;
+    public const int StandOn = 20;
+    public const int TurnEnded = 21;
+    public const int View = 22;
 
-    public const int TotalComponents = 18;
+    public const int TotalComponents = 23;
 
     public static readonly string[] componentNames = {
+        "BeingStoodOn",
         "BoardSet",
         "CameFrom",
         "Coroutine",
         "CoroutineQueue",
+        "DisableInput",
         "Exit",
         "FindPathDone",
         "GameSettings",
+        "Goal",
+        "LastBlocked",
         "MouseClick",
         "MoveCost",
         "Mover",
+        "MoveTo",
         "Neighbors",
         "Node",
-        "NodeView",
         "Path",
         "PathView",
         "Position",
         "StandOn",
-        "TurnEnded"
+        "TurnEnded",
+        "View"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(BeingStoodOn),
         typeof(BoardSet),
         typeof(CameFrom),
         typeof(Coroutine),
         typeof(CoroutineQueue),
+        typeof(DisableInput),
         typeof(Exit),
         typeof(FindPathDone),
         typeof(GameSettings),
+        typeof(Goal),
+        typeof(LastBlocked),
         typeof(MouseClick),
         typeof(MoveCost),
         typeof(Mover),
+        typeof(MoveTo),
         typeof(NeighborsComponent),
         typeof(NodeComponent),
-        typeof(NodeView),
         typeof(Path),
         typeof(PathView),
         typeof(Position),
         typeof(StandOn),
-        typeof(TurnEnded)
+        typeof(TurnEnded),
+        typeof(View)
     };
 }

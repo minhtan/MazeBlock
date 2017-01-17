@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Entitas;
-
-public class NodeView : IComponent {
-	public GameObject view;
+public class Goal : IComponent {
+	public Entity node;
 }

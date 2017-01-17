@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Entitas;
-public class StandOn : IComponent {
+public class MoveTo : IComponent {
 	public Entity node;
-}
-
-public class BeingStoodOn : IComponent {
-	
 }

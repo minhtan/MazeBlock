@@ -25,7 +25,7 @@ public class BoardInitSystem : IInitializeSystem, ISetPool {
 
 				node.AddPosition (r * dist, c * dist).AddMoveCost(0f).AddCameFrom(null).AddNode (false);
 
-				if (r==0 && c==0) {
+				if (r==0 && c==col-1) {
 					node.AddExit (Player.player1);
 				}else if (r==row-1 && c==col-1){
 					node.AddExit (Player.AI);	
@@ -33,7 +33,7 @@ public class BoardInitSystem : IInitializeSystem, ISetPool {
 			}
 		}
 
-		_pool.CreateEntity ().IsBoardSet (true);
+		_pool.isBoardSet = true;
 	}
 	#endregion
 }

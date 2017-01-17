@@ -31,6 +31,38 @@ namespace Entitas {
         }
     }
 
+    public partial class Pool {
+
+        public Entity mouseClickEntity { get { return GetGroup(Matcher.MouseClick).GetSingleEntity(); } }
+        public MouseClick mouseClick { get { return mouseClickEntity.mouseClick; } }
+        public bool hasMouseClick { get { return mouseClickEntity != null; } }
+
+        public Entity SetMouseClick(UnityEngine.Vector3 newScreenPosition) {
+            if(hasMouseClick) {
+                throw new EntitasException("Could not set mouseClick!\n" + this + " already has an entity with MouseClick!",
+                    "You should check if the pool already has a mouseClickEntity before setting it or use pool.ReplaceMouseClick().");
+            }
+            var entity = CreateEntity();
+            entity.AddMouseClick(newScreenPosition);
+            return entity;
+        }
+
+        public Entity ReplaceMouseClick(UnityEngine.Vector3 newScreenPosition) {
+            var entity = mouseClickEntity;
+            if(entity == null) {
+                entity = SetMouseClick(newScreenPosition);
+            } else {
+                entity.ReplaceMouseClick(newScreenPosition);
+            }
+
+            return entity;
+        }
+
+        public void RemoveMouseClick() {
+            DestroyEntity(mouseClickEntity);
+        }
+    }
+
     public partial class Matcher {
 
         static IMatcher _matcherMouseClick;

@@ -30,7 +30,7 @@ public class PathDrawSystem : IReactiveSystem, ISetPool {
 		for (int i = 0; i < movers.Length; i++) {
 			mover = movers [i];
 
-			tempPath = mover.path.nodes;
+			tempPath = new Queue <Entity> ( mover.path.nodes );
 			count = mover.path.nodes.Count;
 			mover.pathView.line.SetVertexCount (count);
 			for (int j = 0; j < count; j++) {

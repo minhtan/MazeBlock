@@ -20,9 +20,9 @@ public class BoardDrawSystem : IReactiveSystem {
 		for (int i = 0; i < entities.Count; i++) {
 			var e = entities [i];
 
-			if (e.hasNodeView) {
-				EntityLink.RemoveLink (e.nodeView.view);
-				Lean.LeanPool.Despawn (e.nodeView.view);
+			if (e.hasView) {
+				EntityLink.RemoveLink (e.view.go);
+				Lean.LeanPool.Despawn (e.view.go);
 			}
 
 			var prefToLoad = "nodePrefab";
@@ -38,7 +38,7 @@ public class BoardDrawSystem : IReactiveSystem {
 			var name = "node" + e.position.x + "/" + e.position.z;
 
 			e.AddCoroutineTask (e.CreateView(prefToLoad, name, (view) => {
-				e.ReplaceNodeView(view);
+				e.ReplaceView(view);
 				EntityLink.AddLink(view, e);
 			}, _viewParent.transform), true);
 		}

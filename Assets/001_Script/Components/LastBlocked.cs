@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Entitas;
-public class StandOn : IComponent {
+[Entitas.CodeGenerator.SingleEntity]
+public class LastBlocked : IComponent {
 	public Entity node;
-}
-
-public class BeingStoodOn : IComponent {
-	
 }

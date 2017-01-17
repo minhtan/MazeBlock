@@ -15,7 +15,7 @@ public class InitGameSystem : IInitializeSystem, ISetPool {
 	#region IInitializeSystem implementation
 	public void Initialize ()
 	{
-		_pool.CreateEntity ().AddGameSettings(5, 5, 1f);
+		_pool.CreateEntity ().AddGameSettings(9, 9, 1f);
 	}
 	#endregion
 }

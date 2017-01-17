@@ -10,24 +10,24 @@ namespace Entitas {
 
     public partial class Entity {
 
-        static readonly Mover moverComponent = new Mover();
+        public Mover mover { get { return (Mover)GetComponent(ComponentIds.Mover); } }
+        public bool hasMover { get { return HasComponent(ComponentIds.Mover); } }
 
-        public bool isMover {
-            get { return HasComponent(ComponentIds.Mover); }
-            set {
-                if(value != isMover) {
-                    if(value) {
-                        AddComponent(ComponentIds.Mover, moverComponent);
-                    } else {
-                        RemoveComponent(ComponentIds.Mover);
-                    }
-                }
-            }
+        public Entity AddMover(Player newPlayer) {
+            var component = CreateComponent<Mover>(ComponentIds.Mover);
+            component.player = newPlayer;
+            return AddComponent(ComponentIds.Mover, component);
         }
 
-        public Entity IsMover(bool value) {
-            isMover = value;
+        public Entity ReplaceMover(Player newPlayer) {
+            var component = CreateComponent<Mover>(ComponentIds.Mover);
+            component.player = newPlayer;
+            ReplaceComponent(ComponentIds.Mover, component);
             return this;
+        }
+
+        public Entity RemoveMover() {
+            return RemoveComponent(ComponentIds.Mover);
         }
     }
 
