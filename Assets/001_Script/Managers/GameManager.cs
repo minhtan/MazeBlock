@@ -40,8 +40,11 @@ public class GameManager : MonoBehaviour {
 				//Input systems
 				.Add(pools.pool.CreateSystem( new InputCheckSystem () ))
 				.Add(pools.pool.CreateSystem( new InputUIListenerSystem () ))
-				//Set up systems
-				.Add(pools.pool.CreateSystem( new InitGameSystem () ))
+				//Main Game
+				.Add(pools.pool.CreateSystem( new GameInitSystem () ))
+				.Add(pools.pool.CreateSystem( new CheckLastBlockedValiditySystem () ))
+				.Add(pools.pool.CreateSystem( new CheckWinnerSystem () ))
+
 				//Node systems
 				.Add(pools.pool.CreateSystem( new BoardInitSystem () ))
 				.Add(pools.pool.CreateSystem( new BoardSetNeighborsSystem () ))
@@ -53,7 +56,6 @@ public class GameManager : MonoBehaviour {
 				.Add(pools.pool.CreateSystem( new MoverSetMoveToSystem () ))
 				.Add(pools.pool.CreateSystem( new MoverMoveSystem () ))
 				//Path systems
-				.Add(pools.pool.CreateSystem( new PathFindingSystem () ))
 				.Add(pools.pool.CreateSystem( new PathCreateViewSystem () ))
 				.Add(pools.pool.CreateSystem( new PathDrawSystem () ))
 			;

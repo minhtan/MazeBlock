@@ -21,12 +21,12 @@ public class MoverInitSystem : IInitializeSystem, ISetPool {
 		CreateMover (nodes,
 			0,
 			0
-		).AddMover (Player.player1).AddGoal(_pool.FindExitNode(Player.AI));
+		).AddMover (Player.Me).AddGoal(_pool.FindExitNode(Player.Opponent));
 
 		CreateMover (nodes,
 			Mathf.CeilToInt (_pool.gameSettings.row-1), 
 			0
-		).AddMover (Player.AI).AddGoal(_pool.FindExitNode(Player.player1));
+		).AddMover (Player.Opponent).AddGoal(_pool.FindExitNode(Player.Me));
 	}
 
 	#endregion

@@ -17,7 +17,6 @@ public class MoverSetMoveToSystem : IReactiveSystem, ISetPool {
 	public void Execute (System.Collections.Generic.List<Entity> entities)
 	{
 		var turnEnded = entities.SingleEntity ();
-		_pool.isDisableInput = true;
 
 		Entity m;
 		var movers = _groupMover.GetEntities ();
@@ -34,7 +33,7 @@ public class MoverSetMoveToSystem : IReactiveSystem, ISetPool {
 	#region IReactiveSystem implementation
 	public TriggerOnEvent trigger {
 		get {
-			return Matcher.TurnEnded.OnEntityAdded ();
+			return Matcher.Phase03_MovingMovers.OnEntityAdded ();
 		}
 	}
 	#endregion

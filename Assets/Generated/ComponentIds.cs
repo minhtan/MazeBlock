@@ -13,26 +13,34 @@ public static class ComponentIds {
     public const int CameFrom = 2;
     public const int Coroutine = 3;
     public const int CoroutineQueue = 4;
-    public const int DisableInput = 5;
+    public const int CurrentPlaying = 5;
     public const int Exit = 6;
     public const int FindPathDone = 7;
-    public const int GameSettings = 8;
-    public const int Goal = 9;
-    public const int LastBlocked = 10;
-    public const int MouseClick = 11;
-    public const int MoveCost = 12;
-    public const int Mover = 13;
-    public const int MoveTo = 14;
-    public const int Neighbors = 15;
-    public const int Node = 16;
-    public const int Path = 17;
-    public const int PathView = 18;
-    public const int Position = 19;
-    public const int StandOn = 20;
-    public const int TurnEnded = 21;
-    public const int View = 22;
+    public const int GameOver = 8;
+    public const int GameSettings = 9;
+    public const int Goal = 10;
+    public const int Invalid = 11;
+    public const int LastBlocked = 12;
+    public const int MeTurnEnded = 13;
+    public const int MouseClick = 14;
+    public const int MoveCost = 15;
+    public const int Mover = 16;
+    public const int MoveTo = 17;
+    public const int MovingMovers = 18;
+    public const int Neighbors = 19;
+    public const int Node = 20;
+    public const int OpponentTurnEnded = 21;
+    public const int Path = 22;
+    public const int PathView = 23;
+    public const int Phase01_PlayerTurn = 24;
+    public const int Phase02_OpponentTurn = 25;
+    public const int Phase03_MovingMovers = 26;
+    public const int Phase04_CheckGameOver = 27;
+    public const int Position = 28;
+    public const int StandOn = 29;
+    public const int View = 30;
 
-    public const int TotalComponents = 23;
+    public const int TotalComponents = 31;
 
     public static readonly string[] componentNames = {
         "BeingStoodOn",
@@ -40,23 +48,31 @@ public static class ComponentIds {
         "CameFrom",
         "Coroutine",
         "CoroutineQueue",
-        "DisableInput",
+        "CurrentPlaying",
         "Exit",
         "FindPathDone",
+        "GameOver",
         "GameSettings",
         "Goal",
+        "Invalid",
         "LastBlocked",
+        "MeTurnEnded",
         "MouseClick",
         "MoveCost",
         "Mover",
         "MoveTo",
+        "MovingMovers",
         "Neighbors",
         "Node",
+        "OpponentTurnEnded",
         "Path",
         "PathView",
+        "Phase01_PlayerTurn",
+        "Phase02_OpponentTurn",
+        "Phase03_MovingMovers",
+        "Phase04_CheckGameOver",
         "Position",
         "StandOn",
-        "TurnEnded",
         "View"
     };
 
@@ -66,11 +82,12 @@ public static class ComponentIds {
         typeof(CameFrom),
         typeof(Coroutine),
         typeof(CoroutineQueue),
-        typeof(DisableInput),
+        typeof(CurrentPlaying),
         typeof(Exit),
-        typeof(FindPathDone),
+        typeof(GameOver),
         typeof(GameSettings),
         typeof(Goal),
+        typeof(Invalid),
         typeof(LastBlocked),
         typeof(MouseClick),
         typeof(MoveCost),
@@ -80,9 +97,12 @@ public static class ComponentIds {
         typeof(NodeComponent),
         typeof(Path),
         typeof(PathView),
+        typeof(Phase01_PlayerTurn),
+        typeof(Phase02_OpponentTurn),
+        typeof(Phase03_MovingMovers),
+        typeof(Phase04_CheckGameOver),
         typeof(Position),
         typeof(StandOn),
-        typeof(TurnEnded),
         typeof(View)
     };
 }

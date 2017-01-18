@@ -17,8 +17,6 @@ public class PathDrawSystem : IReactiveSystem, ISetPool {
 	#region IReactiveExecuteSystem implementation
 	public void Execute (System.Collections.Generic.List<Entity> entities)
 	{
-		var findPathDone = entities.SingleEntity ();
-
 		//mover
 		Entity mover;
 		var movers = _groupMoversWithPath.GetEntities ();
@@ -38,15 +36,13 @@ public class PathDrawSystem : IReactiveSystem, ISetPool {
 				mover.pathView.line.SetPosition (j, new Vector3 (current.position.x, 0.01f, current.position.z));
 			}
 		}
-
-		_pool.DestroyEntity (findPathDone);
 	}
 	#endregion
 
 	#region IReactiveSystem implementation
 	public TriggerOnEvent trigger {
 		get {
-			return Matcher.FindPathDone.OnEntityAdded ();
+			return Matcher.Phase02_OpponentTurn.OnEntityRemoved ();
 		}
 	}
 	#endregion

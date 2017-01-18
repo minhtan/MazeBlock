@@ -3,9 +3,14 @@ using System.Collections;
 using Entitas;
 
 public enum Player{
-	player1,
-	player2,
-	AI
+	Me,
+	Opponent
+}
+
+public enum Winner{
+	Me,
+	Opponent,
+	tied
 }
 
 public class Exit : IComponent {

@@ -26,6 +26,6 @@ public class InputUIListenerSystem : IInitializeSystem, ITearDownSystem, ISetPoo
 	#endregion
 
 	void TurnEnded(){
-		_pool.CreateEntity ().AddTurnEnded (Player.player1);
+		_pool.NextPhase ();
 	}
 }

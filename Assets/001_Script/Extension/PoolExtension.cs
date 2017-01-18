@@ -14,4 +14,20 @@ public static class PoolExtension {
 		}
 		return null;
 	}
+
+	public static void NextPhase(this Pool pool){
+		if (pool.isPhase01_PlayerTurn) {
+			pool.isPhase01_PlayerTurn = false;
+			pool.isPhase02_OpponentTurn = true;
+		} else if (pool.isPhase02_OpponentTurn) {
+			pool.isPhase02_OpponentTurn = false;
+			pool.isPhase03_MovingMovers = true;
+		} else if (pool.isPhase03_MovingMovers){
+			pool.isPhase03_MovingMovers = false;
+			pool.isPhase04_CheckGameOver = false;
+		}else if (pool.isPhase04_CheckGameOver) {
+			pool.isPhase04_CheckGameOver = false;
+			pool.isPhase01_PlayerTurn = true;
+		}
+	}
 }

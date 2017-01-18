@@ -2,7 +2,7 @@
 using System.Collections;
 using Entitas;
 
-public class InitGameSystem : IInitializeSystem, ISetPool {
+public class GameInitSystem : IInitializeSystem, ISetPool {
 	#region ISetPool implementation
 	Pool _pool;
 	public void SetPool (Pool pool)
@@ -15,7 +15,8 @@ public class InitGameSystem : IInitializeSystem, ISetPool {
 	#region IInitializeSystem implementation
 	public void Initialize ()
 	{
-		_pool.CreateEntity ().AddGameSettings(9, 9, 1f);
+		_pool.SetGameSettings (9, 9, 1f);
+		_pool.SetCurrentPlaying (Player.Me);
 	}
 	#endregion
 }

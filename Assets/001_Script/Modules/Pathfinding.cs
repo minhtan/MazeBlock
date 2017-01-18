@@ -1,75 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Entitas;
 using Priority_Queue;
+using Entitas;
 using System.Collections.Generic;
 using System.Linq;
 
-public class PathFindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
-	#region ISetPool implementation
-	Group _groupMover;
-	Group _groupExit;
-	Pool _pool;
-	public void SetPool (Pool pool)
-	{
-		_pool = pool;
-		_groupMover = pool.GetGroup (Matcher.Mover);
-		_groupExit = pool.GetGroup (Matcher.Exit);
-	}
-
-	#endregion
-
-	#region IInitializeSystem implementation
-	float D;
-	float D2;
-	public void Initialize ()
-	{
-		D = _pool.gameSettings.distanceBtwNode;
-		D2 = _pool.gameSettings.distanceBtwNode / (Mathf.Sqrt (2f) / 2);
-	}
-
-	#endregion
-
-	#region IReactiveExecuteSystem implementation
-	Queue<Entity> path;
-	public void Execute (System.Collections.Generic.List<Entity> entities)
-	{
-		var lastBlocked = entities.SingleEntity ();
-
-		Entity m;
-		var movers = _groupMover.GetEntities ();
-		for (int i = 0; i < movers.Length; i++) {
-			m = movers [i];
-
-			path = FindPath (m.standOn.node, m.goal.node, D, D2);
-			if (path == null) { // can not find path
-				lastBlocked.RemoveLastBlocked ();
-				return;
-			} else {
-				m.ReplacePath (path);
-			}
-		}
-
-		lastBlocked.lastBlocked.node.ReplaceNode(true).RemoveLastBlocked ();
-		_pool.isFindPathDone = true;
-	}
-
-	#endregion
-
-	#region IReactiveSystem implementation
-
-	public TriggerOnEvent trigger {
-		get {
-			return Matcher.LastBlocked.OnEntityAdded ();
-		}
-	}
-
-	#endregion
-
-	SimplePriorityQueue<Entity> frontier = new SimplePriorityQueue<Entity> ();
-	List<Entity> exploredNodes = new List<Entity> ();
-	List<Entity> neighbors;
-	Queue<Entity> FindPath(Entity start, Entity end, float D, float D2){
+public class Pathfinding {
+	static SimplePriorityQueue<Entity> frontier = new SimplePriorityQueue<Entity> ();
+	static List<Entity> exploredNodes = new List<Entity> ();
+	static List<Entity> neighbors;
+	public static Queue<Entity> FindPath(Entity start, Entity end, float D, float D2){
 		frontier.Clear ();
 		frontier.Enqueue (start, 0);
 		exploredNodes.Clear ();
@@ -116,13 +56,13 @@ public class PathFindingSystem : IReactiveSystem, ISetPool, IInitializeSystem {
 		return null;
 	}
 
-	float GetHScore(Position node, Position goal, float D, float D2){
+	static float GetHScore(Position node, Position goal, float D, float D2){
 		var dx = Mathf.Abs (node.x - goal.x);
 		var dy = Mathf.Abs (node.z - goal.z);
 		return D * (dx + dy) + (D2 - 2 * D) * Mathf.Min (dx, dy);
 	}
 
-	Queue<Entity> ReconstructPath(ref Entity goal, ref Entity start){
+	static Queue<Entity> ReconstructPath(ref Entity goal, ref Entity start){
 		Entity current = goal;
 		Queue<Entity> path = new Queue<Entity> ();
 		path.Enqueue (current);

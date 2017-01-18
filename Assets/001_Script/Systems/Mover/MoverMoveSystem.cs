@@ -18,7 +18,7 @@ public class MoverMoveSystem : IExecuteSystem, ISetPool {
 	public void Execute ()
 	{
 		if (_groupMoveTo.count <= 0) {
-			_pool.isDisableInput = false;
+			_pool.NextPhase ();
 			return;
 		}
 
@@ -27,6 +27,7 @@ public class MoverMoveSystem : IExecuteSystem, ISetPool {
 		for (int i = 0; i < ens.Length; i++) {
 			m = ens [i];
 
+			
 			if (m.IsReachedNode (m.moveTo.node)) {
 				m.standOn.node.IsBeingStoodOn (false);
 				m.ReplaceStandOn (m.moveTo.node);

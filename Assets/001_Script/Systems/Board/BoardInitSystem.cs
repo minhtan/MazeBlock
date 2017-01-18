@@ -26,9 +26,9 @@ public class BoardInitSystem : IInitializeSystem, ISetPool {
 				node.AddPosition (r * dist, c * dist).AddMoveCost(0f).AddCameFrom(null).AddNode (false);
 
 				if (r==0 && c==col-1) {
-					node.AddExit (Player.player1);
+					node.AddExit (Player.Me);
 				}else if (r==row-1 && c==col-1){
-					node.AddExit (Player.AI);	
+					node.AddExit (Player.Opponent);	
 				}
 			}
 		}
