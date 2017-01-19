@@ -20,7 +20,12 @@ public class MoverDrawSystem : IReactiveSystem {
 		for (int i = 0; i < entities.Count; i++) {
 			var e = entities [i];
 
-			var prefToLoad = "moverPrefab";
+			var prefToLoad = "moverPrefabPlayer";
+			if (e.mover.player == Player.Me) {
+				prefToLoad = "moverPrefabPlayer";
+			} else {
+				prefToLoad = "moverPrefabAI";
+			}
 			var name = "mover";
 
 			e.AddCoroutineTask (e.CreateView(prefToLoad, name, (go) => {

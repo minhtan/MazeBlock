@@ -13,13 +13,13 @@ namespace Entitas {
         public GameOver gameOver { get { return (GameOver)GetComponent(ComponentIds.GameOver); } }
         public bool hasGameOver { get { return HasComponent(ComponentIds.GameOver); } }
 
-        public Entity AddGameOver(Winner newWinner) {
+        public Entity AddGameOver(Player newWinner) {
             var component = CreateComponent<GameOver>(ComponentIds.GameOver);
             component.winner = newWinner;
             return AddComponent(ComponentIds.GameOver, component);
         }
 
-        public Entity ReplaceGameOver(Winner newWinner) {
+        public Entity ReplaceGameOver(Player newWinner) {
             var component = CreateComponent<GameOver>(ComponentIds.GameOver);
             component.winner = newWinner;
             ReplaceComponent(ComponentIds.GameOver, component);
@@ -37,7 +37,7 @@ namespace Entitas {
         public GameOver gameOver { get { return gameOverEntity.gameOver; } }
         public bool hasGameOver { get { return gameOverEntity != null; } }
 
-        public Entity SetGameOver(Winner newWinner) {
+        public Entity SetGameOver(Player newWinner) {
             if(hasGameOver) {
                 throw new EntitasException("Could not set gameOver!\n" + this + " already has an entity with GameOver!",
                     "You should check if the pool already has a gameOverEntity before setting it or use pool.ReplaceGameOver().");
@@ -47,7 +47,7 @@ namespace Entitas {
             return entity;
         }
 
-        public Entity ReplaceGameOver(Winner newWinner) {
+        public Entity ReplaceGameOver(Player newWinner) {
             var entity = gameOverEntity;
             if(entity == null) {
                 entity = SetGameOver(newWinner);

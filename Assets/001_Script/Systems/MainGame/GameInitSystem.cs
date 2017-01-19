@@ -16,7 +16,11 @@ public class GameInitSystem : IInitializeSystem, ISetPool {
 	public void Initialize ()
 	{
 		_pool.SetGameSettings (9, 9, 1f);
-		_pool.SetCurrentPlaying (Player.Me);
+		_pool.SetNodeDistance (
+			_pool.gameSettings.distanceBtwNode, 
+			_pool.gameSettings.distanceBtwNode / (Mathf.Sqrt (2f) / 2)
+		);
+		_pool.isPhase01_PlayerTurn = true;
 	}
 	#endregion
 }

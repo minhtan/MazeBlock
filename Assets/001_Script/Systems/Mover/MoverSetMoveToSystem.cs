@@ -16,8 +16,6 @@ public class MoverSetMoveToSystem : IReactiveSystem, ISetPool {
 	#region IReactiveExecuteSystem implementation
 	public void Execute (System.Collections.Generic.List<Entity> entities)
 	{
-		var turnEnded = entities.SingleEntity ();
-
 		Entity m;
 		var movers = _groupMover.GetEntities ();
 		for (int i = 0; i < movers.Length; i++) {
@@ -25,8 +23,6 @@ public class MoverSetMoveToSystem : IReactiveSystem, ISetPool {
 
 			m.AddMoveTo (m.path.nodes.Dequeue());
 		}
-
-		_pool.DestroyEntity (turnEnded);
 	}
 	#endregion
 

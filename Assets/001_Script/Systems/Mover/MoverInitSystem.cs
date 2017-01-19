@@ -19,14 +19,14 @@ public class MoverInitSystem : IInitializeSystem, ISetPool {
 		var nodes = _pool.GetEntities (Matcher.Node);
 
 		CreateMover (nodes,
-			0,
+			Mathf.CeilToInt (_pool.gameSettings.row-1),
 			0
-		).AddMover (Player.Me).AddGoal(_pool.FindExitNode(Player.Opponent));
+		).AddMover (Player.Me).AddGoal(_pool.FindExitNode(Player.Me));
 
 		CreateMover (nodes,
-			Mathf.CeilToInt (_pool.gameSettings.row-1), 
+			0, 
 			0
-		).AddMover (Player.Opponent).AddGoal(_pool.FindExitNode(Player.Me));
+		).AddMover (Player.Opponent).AddGoal(_pool.FindExitNode(Player.Opponent));
 	}
 
 	#endregion

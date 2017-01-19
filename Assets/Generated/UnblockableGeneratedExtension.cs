@@ -10,40 +10,40 @@ namespace Entitas {
 
     public partial class Entity {
 
-        static readonly Invalid invalidComponent = new Invalid();
+        static readonly Unblockable unblockableComponent = new Unblockable();
 
-        public bool isInvalid {
-            get { return HasComponent(ComponentIds.Invalid); }
+        public bool isUnblockable {
+            get { return HasComponent(ComponentIds.Unblockable); }
             set {
-                if(value != isInvalid) {
+                if(value != isUnblockable) {
                     if(value) {
-                        AddComponent(ComponentIds.Invalid, invalidComponent);
+                        AddComponent(ComponentIds.Unblockable, unblockableComponent);
                     } else {
-                        RemoveComponent(ComponentIds.Invalid);
+                        RemoveComponent(ComponentIds.Unblockable);
                     }
                 }
             }
         }
 
-        public Entity IsInvalid(bool value) {
-            isInvalid = value;
+        public Entity IsUnblockable(bool value) {
+            isUnblockable = value;
             return this;
         }
     }
 
     public partial class Matcher {
 
-        static IMatcher _matcherInvalid;
+        static IMatcher _matcherUnblockable;
 
-        public static IMatcher Invalid {
+        public static IMatcher Unblockable {
             get {
-                if(_matcherInvalid == null) {
-                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Invalid);
+                if(_matcherUnblockable == null) {
+                    var matcher = (Matcher)Matcher.AllOf(ComponentIds.Unblockable);
                     matcher.componentNames = ComponentIds.componentNames;
-                    _matcherInvalid = matcher;
+                    _matcherUnblockable = matcher;
                 }
 
-                return _matcherInvalid;
+                return _matcherUnblockable;
             }
         }
     }

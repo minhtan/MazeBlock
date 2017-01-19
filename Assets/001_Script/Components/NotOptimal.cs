@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Entitas;
+public class NotOptimal : IComponent {
 
-public class Exit : IComponent {
-	public Player player;	
 }

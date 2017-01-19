@@ -29,7 +29,11 @@ public class BoardDrawSystem : IReactiveSystem {
 			if (e.node.isBlocked) {
 				prefToLoad = "nodePrefabBlocked";	
 			}else if (e.hasExit) {
-				prefToLoad = "nodePrefabExit";
+				if (e.exit.player == Player.Me) {
+					prefToLoad = "nodePrefabExitPlayer";
+				} else {
+					prefToLoad = "nodePrefabExitAI";
+				}
 			}else if ((e.position.x + e.position.z) % 2 == 0) {
 				prefToLoad = "nodePrefab";
 			} else {

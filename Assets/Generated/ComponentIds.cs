@@ -13,34 +13,33 @@ public static class ComponentIds {
     public const int CameFrom = 2;
     public const int Coroutine = 3;
     public const int CoroutineQueue = 4;
-    public const int CurrentPlaying = 5;
-    public const int Exit = 6;
-    public const int FindPathDone = 7;
-    public const int GameOver = 8;
-    public const int GameSettings = 9;
-    public const int Goal = 10;
-    public const int Invalid = 11;
-    public const int LastBlocked = 12;
-    public const int MeTurnEnded = 13;
-    public const int MouseClick = 14;
-    public const int MoveCost = 15;
-    public const int Mover = 16;
-    public const int MoveTo = 17;
-    public const int MovingMovers = 18;
-    public const int Neighbors = 19;
-    public const int Node = 20;
-    public const int OpponentTurnEnded = 21;
-    public const int Path = 22;
-    public const int PathView = 23;
-    public const int Phase01_PlayerTurn = 24;
-    public const int Phase02_OpponentTurn = 25;
-    public const int Phase03_MovingMovers = 26;
-    public const int Phase04_CheckGameOver = 27;
-    public const int Position = 28;
-    public const int StandOn = 29;
-    public const int View = 30;
+    public const int Exit = 5;
+    public const int GameOver = 6;
+    public const int GameSettings = 7;
+    public const int Goal = 8;
+    public const int LastBlocked = 9;
+    public const int MouseClick = 10;
+    public const int MoveCost = 11;
+    public const int Mover = 12;
+    public const int MoveTo = 13;
+    public const int Neighbors = 14;
+    public const int Node = 15;
+    public const int NodeDistance = 16;
+    public const int NotOptimal = 17;
+    public const int Path = 18;
+    public const int PathView = 19;
+    public const int Phase01_PlayerTurn = 20;
+    public const int Phase02_OpponentTurn = 21;
+    public const int Phase03_MovingMovers = 22;
+    public const int Phase04_CheckGameOver = 23;
+    public const int Position = 24;
+    public const int StandOn = 25;
+    public const int TemporaryBlocked = 26;
+    public const int TotalMoversCost = 27;
+    public const int Unblockable = 28;
+    public const int View = 29;
 
-    public const int TotalComponents = 31;
+    public const int TotalComponents = 30;
 
     public static readonly string[] componentNames = {
         "BeingStoodOn",
@@ -48,23 +47,19 @@ public static class ComponentIds {
         "CameFrom",
         "Coroutine",
         "CoroutineQueue",
-        "CurrentPlaying",
         "Exit",
-        "FindPathDone",
         "GameOver",
         "GameSettings",
         "Goal",
-        "Invalid",
         "LastBlocked",
-        "MeTurnEnded",
         "MouseClick",
         "MoveCost",
         "Mover",
         "MoveTo",
-        "MovingMovers",
         "Neighbors",
         "Node",
-        "OpponentTurnEnded",
+        "NodeDistance",
+        "NotOptimal",
         "Path",
         "PathView",
         "Phase01_PlayerTurn",
@@ -73,6 +68,9 @@ public static class ComponentIds {
         "Phase04_CheckGameOver",
         "Position",
         "StandOn",
+        "TemporaryBlocked",
+        "TotalMoversCost",
+        "Unblockable",
         "View"
     };
 
@@ -82,12 +80,10 @@ public static class ComponentIds {
         typeof(CameFrom),
         typeof(Coroutine),
         typeof(CoroutineQueue),
-        typeof(CurrentPlaying),
         typeof(Exit),
         typeof(GameOver),
         typeof(GameSettings),
         typeof(Goal),
-        typeof(Invalid),
         typeof(LastBlocked),
         typeof(MouseClick),
         typeof(MoveCost),
@@ -95,6 +91,8 @@ public static class ComponentIds {
         typeof(MoveTo),
         typeof(NeighborsComponent),
         typeof(NodeComponent),
+        typeof(NodeDistance),
+        typeof(NotOptimal),
         typeof(Path),
         typeof(PathView),
         typeof(Phase01_PlayerTurn),
@@ -103,6 +101,9 @@ public static class ComponentIds {
         typeof(Phase04_CheckGameOver),
         typeof(Position),
         typeof(StandOn),
+        typeof(TemporaryBlocked),
+        typeof(TotalMoversCost),
+        typeof(Unblockable),
         typeof(View)
     };
 }

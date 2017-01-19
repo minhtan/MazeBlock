@@ -13,5 +13,5 @@ public class MouseClick : IComponent {
 
 [Entitas.CodeGenerator.SingleEntity]
 public class GameOver : IComponent {
-	public Winner winner;
+	public Player winner;
 }

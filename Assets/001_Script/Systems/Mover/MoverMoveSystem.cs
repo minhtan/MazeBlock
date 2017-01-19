@@ -18,7 +18,6 @@ public class MoverMoveSystem : IExecuteSystem, ISetPool {
 	public void Execute ()
 	{
 		if (_groupMoveTo.count <= 0) {
-			_pool.NextPhase ();
 			return;
 		}
 
@@ -33,6 +32,10 @@ public class MoverMoveSystem : IExecuteSystem, ISetPool {
 				m.ReplaceStandOn (m.moveTo.node);
 				m.moveTo.node.IsBeingStoodOn (true);
 				m.RemoveMoveTo ();
+				if (_groupMoveTo.count <= 0) {
+					_pool.NextPhase ();
+					return;
+				}
 			} else {
 				var nextPos = Vector2.MoveTowards (
 	             	new Vector2 (m.position.x, m.position.z), 

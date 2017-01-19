@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Entitas;
-public class BoardSetBlockSystem : IReactiveSystem, ISetPool {
+public class PlayerSetBlockSystem : IReactiveSystem, ISetPool {
 	#region ISetPool implementation
 	Pool _pool;
 	public void SetPool (Pool pool)
@@ -20,7 +20,7 @@ public class BoardSetBlockSystem : IReactiveSystem, ISetPool {
 		RaycastHit hitInfo;
 		if (Physics.Raycast (ray, out hitInfo)) {
 			var e = EntityLink.GetEntity (hitInfo.collider.gameObject);
-			if (e != null && !e.node.isBlocked && !e.isBeingStoodOn && !e.isInvalid) {
+			if (e != null && !e.isUnblockable && !e.isBeingStoodOn) {
 				e.AddLastBlocked (e);
 			}
 		}

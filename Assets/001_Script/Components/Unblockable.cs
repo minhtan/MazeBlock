@@ -2,6 +2,6 @@
 using System.Collections;
 using Entitas;
 
-public class Invalid : IComponent {
+public class Unblockable : IComponent {
 	
 }

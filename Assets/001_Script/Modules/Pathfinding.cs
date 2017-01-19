@@ -28,7 +28,7 @@ public class Pathfinding {
 			for (int i = 0; i < neighbors.Count; i++) {
 				var next = neighbors [i];
 
-				if (next.node.isBlocked || next.hasLastBlocked) {
+				if (next.node.isBlocked || next.hasLastBlocked || next.isTemporaryBlocked) {
 					continue;
 				}
 
