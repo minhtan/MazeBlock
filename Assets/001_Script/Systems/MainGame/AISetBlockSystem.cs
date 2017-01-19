@@ -23,10 +23,8 @@ public class AISetBlockSystem : IReactiveSystem, ISetPool {
 	Queue<Entity> path;
 	public void Execute (System.Collections.Generic.List<Entity> entities)
 	{
-		Debug.Log ("phase 2");
-
-		float playerCost;
-		float AICost;
+		float playerCost = 0;
+		float AICost = 0;
 		bool invalidNode;
 		Entity n;
 		Entity m;
@@ -36,13 +34,13 @@ public class AISetBlockSystem : IReactiveSystem, ISetPool {
 		for (int i = 0; i < nodes.Length; i++) {
 			n = nodes [i];
 
-			playerCost = 0f;
-			AICost = 0f;
 			invalidNode = false;
 			n.IsTemporaryBlocked (true);
 			
 			for (int j = 0; j < movers.Length; j++) {
 				m = movers[j];
+				playerCost = 0f;
+				AICost = 0f;
 
 				path = Pathfinding.FindPath (m.standOn.node, m.goal.node, _pool.nodeDistance.D, _pool.nodeDistance.D2);
 				if (path == null) {
