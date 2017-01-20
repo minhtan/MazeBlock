@@ -20,7 +20,7 @@ public class PlayerSetBlockSystem : IReactiveSystem, ISetPool {
 		RaycastHit hitInfo;
 		if (Physics.Raycast (ray, out hitInfo)) {
 			var e = EntityLink.GetEntity (hitInfo.collider.gameObject);
-			if (e != null && !e.isUnblockable && !e.isBeingStoodOn) {
+			if (e != null && !e.node.isBlocked && !e.isBeingStoodOn) {
 				e.AddLastBlocked (e);
 			}
 		}

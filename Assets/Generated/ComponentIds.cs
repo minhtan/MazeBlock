@@ -9,40 +9,42 @@
 public static class ComponentIds {
 
     public const int BeingStoodOn = 0;
-    public const int BoardSet = 1;
-    public const int CameFrom = 2;
-    public const int Coroutine = 3;
-    public const int CoroutineQueue = 4;
-    public const int Exit = 5;
-    public const int GameOver = 6;
-    public const int GameSettings = 7;
-    public const int Goal = 8;
-    public const int LastBlocked = 9;
-    public const int MouseClick = 10;
-    public const int MoveCost = 11;
-    public const int Mover = 12;
-    public const int MoveTo = 13;
-    public const int Neighbors = 14;
-    public const int Node = 15;
-    public const int NodeDistance = 16;
-    public const int NotOptimal = 17;
-    public const int Path = 18;
-    public const int PathView = 19;
-    public const int Phase01_PlayerTurn = 20;
-    public const int Phase02_OpponentTurn = 21;
-    public const int Phase03_MovingMovers = 22;
-    public const int Phase04_CheckGameOver = 23;
-    public const int Position = 24;
-    public const int StandOn = 25;
-    public const int TemporaryBlocked = 26;
-    public const int TotalMoversCost = 27;
-    public const int Unblockable = 28;
-    public const int View = 29;
+    public const int Blocked = 1;
+    public const int BoardSet = 2;
+    public const int CameFrom = 3;
+    public const int Coroutine = 4;
+    public const int CoroutineQueue = 5;
+    public const int Exit = 6;
+    public const int GameOver = 7;
+    public const int GameSettings = 8;
+    public const int Goal = 9;
+    public const int LastBlocked = 10;
+    public const int MouseClick = 11;
+    public const int MoveCost = 12;
+    public const int Mover = 13;
+    public const int MoveTo = 14;
+    public const int Neighbors = 15;
+    public const int Node = 16;
+    public const int NodeDistance = 17;
+    public const int NotOptimal = 18;
+    public const int Path = 19;
+    public const int PathView = 20;
+    public const int Phase01_PlayerTurn = 21;
+    public const int Phase02_OpponentTurn = 22;
+    public const int Phase03_MovingMovers = 23;
+    public const int Phase04_CheckGameOver = 24;
+    public const int Position = 25;
+    public const int StandOn = 26;
+    public const int TemporaryBlocked = 27;
+    public const int TotalMoversCost = 28;
+    public const int Unblockable = 29;
+    public const int View = 30;
 
-    public const int TotalComponents = 30;
+    public const int TotalComponents = 31;
 
     public static readonly string[] componentNames = {
         "BeingStoodOn",
+        "Blocked",
         "BoardSet",
         "CameFrom",
         "Coroutine",
@@ -76,6 +78,7 @@ public static class ComponentIds {
 
     public static readonly System.Type[] componentTypes = {
         typeof(BeingStoodOn),
+        typeof(Blocked),
         typeof(BoardSet),
         typeof(CameFrom),
         typeof(Coroutine),

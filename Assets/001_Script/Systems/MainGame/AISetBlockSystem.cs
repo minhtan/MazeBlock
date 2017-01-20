@@ -9,11 +9,13 @@ public class AISetBlockSystem : IReactiveSystem, ISetPool {
 	Group _groupMovers;
 	Group _groupNodes;
 	Group _groupEvaluatedNodes;
+	Group _groupUnblockable;
 	public void SetPool (Pool pool)
 	{
 		_pool = pool;
 		_groupMovers = pool.GetGroup (Matcher.Mover);
-		_groupNodes = pool.GetGroup (Matcher.AllOf(Matcher.Node).NoneOf(Matcher.Unblockable, Matcher.BeingStoodOn));
+		_groupUnblockable = pool.GetGroup (Matcher.Unblockable);
+		_groupNodes = pool.GetGroup (Matcher.AllOf(Matcher.Node).NoneOf(Matcher.Blocked, Matcher.Unblockable, Matcher.BeingStoodOn));
 		_groupEvaluatedNodes = pool.GetGroup (Matcher.AllOf(Matcher.TotalMoversCost).NoneOf(Matcher.Unblockable));
 	}
 
@@ -31,16 +33,17 @@ public class AISetBlockSystem : IReactiveSystem, ISetPool {
 		var movers = _groupMovers.GetEntities ();
 		var nodes = _groupNodes.GetEntities ();
 
+		//Evaluate nodes
 		for (int i = 0; i < nodes.Length; i++) {
 			n = nodes [i];
 
+			playerCost = 0f;
+			AICost = 0f;
 			invalidNode = false;
 			n.IsTemporaryBlocked (true);
 			
 			for (int j = 0; j < movers.Length; j++) {
 				m = movers[j];
-				playerCost = 0f;
-				AICost = 0f;
 
 				path = Pathfinding.FindPath (m.standOn.node, m.goal.node, _pool.nodeDistance.D, _pool.nodeDistance.D2);
 				if (path == null) {
@@ -60,29 +63,50 @@ public class AISetBlockSystem : IReactiveSystem, ISetPool {
 			if (invalidNode) {
 				continue;
 			}else{
+				Debug.Log (n.position.x + "/" + n.position.z + " player: " + playerCost + " AI " + AICost);
 				n.ReplaceTotalMoversCost (playerCost, AICost);
 			}
 		}
 
-		int choosenOne = 0;
+		//Get the optimal node
+		int choosenOne = -1;
 		Entity en;
 		var ens = _groupEvaluatedNodes.GetEntities ();
 		for (int i = 0; i < ens.Length; i++) {
 			en = ens [i];
 
-			if (en.totalMoversCost.AICost < ens[choosenOne].totalMoversCost.AICost && 
-				en.totalMoversCost.AICost < en.totalMoversCost.playerCost )
+			if (en.totalMoversCost.AICost < en.totalMoversCost.playerCost )
 			{
-				choosenOne = i;	
+				if (choosenOne == -1) {
+					choosenOne = i;	
+				} else if(en.totalMoversCost.AICost < ens[choosenOne].totalMoversCost.AICost){
+					choosenOne = i;
+				}
 			}
 		}
+		for (int i = 0; i < ens.Length; i++) {
+			ens[i].RemoveTotalMoversCost ();
+		}
 
-		ens [choosenOne].ReplaceNode (true).IsUnblockable (true);
+		//Place block on choosen node
+		if (choosenOne != -1) {
+			Debug.Log ("chossen: " + ens[choosenOne].position.x + "/" + ens[choosenOne].position.z);
+			ens [choosenOne].ReplaceNode (true).IsBlocked(true);
+		}
+
+		//Find path
 		for (int i = 0; i < movers.Length; i++) {
 			m = movers [i];
-
+			
 			path = Pathfinding.FindPath (m.standOn.node, m.goal.node, _pool.nodeDistance.D, _pool.nodeDistance.D2);
 			m.ReplacePath (path);
+		}
+
+		//Reset unblockables
+		var uns = _groupUnblockable.GetEntities();
+		for (int i = 0; i < uns.Length; i++) {
+			uns [i].IsUnblockable(false);
+
 		}
 		_pool.NextPhase ();
 	}

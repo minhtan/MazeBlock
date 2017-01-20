@@ -8,11 +8,13 @@ using System.Linq;
 public class CheckLastBlockedValiditySystem : IReactiveSystem, ISetPool {
 	#region ISetPool implementation
 	Group _groupMover;
+	Group _groupUnblockable;
 	Pool _pool;
 	public void SetPool (Pool pool)
 	{
 		_pool = pool;
 		_groupMover = pool.GetGroup (Matcher.Mover);
+		_groupUnblockable = pool.GetGroup (Matcher.Unblockable);
 	}
 	#endregion
 
@@ -34,7 +36,13 @@ public class CheckLastBlockedValiditySystem : IReactiveSystem, ISetPool {
 			}
 		}
 
-		lastBlocked.lastBlocked.node.ReplaceNode(true).IsUnblockable(true).RemoveLastBlocked ();
+		lastBlocked.lastBlocked.node.ReplaceNode(true).IsBlocked(true).RemoveLastBlocked ();
+
+		var uns = _groupUnblockable.GetEntities();
+		for (int i = 0; i < uns.Length; i++) {
+			uns [i].IsUnblockable(false);
+
+		}
 		_pool.NextPhase ();
 	}
 

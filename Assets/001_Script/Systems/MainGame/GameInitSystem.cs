@@ -15,7 +15,7 @@ public class GameInitSystem : IInitializeSystem, ISetPool {
 	#region IInitializeSystem implementation
 	public void Initialize ()
 	{
-		_pool.SetGameSettings (9, 9, 1f);
+		_pool.SetGameSettings (7, 7, 1f);
 		_pool.SetNodeDistance (
 			_pool.gameSettings.distanceBtwNode, 
 			_pool.gameSettings.distanceBtwNode / (Mathf.Sqrt (2f) / 2)
