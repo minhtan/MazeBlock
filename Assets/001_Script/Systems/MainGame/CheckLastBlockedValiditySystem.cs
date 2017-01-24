@@ -41,7 +41,6 @@ public class CheckLastBlockedValiditySystem : IReactiveSystem, ISetPool {
 		var uns = _groupUnblockable.GetEntities();
 		for (int i = 0; i < uns.Length; i++) {
 			uns [i].IsUnblockable(false);
-
 		}
 		_pool.NextPhase ();
 	}

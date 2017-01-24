@@ -100,13 +100,13 @@ public class AISetBlockSystem : IReactiveSystem, ISetPool {
 			
 			path = Pathfinding.FindPath (m.standOn.node, m.goal.node, _pool.nodeDistance.D, _pool.nodeDistance.D2);
 			m.ReplacePath (path);
+			DebugPath (path);
 		}
 
 		//Reset unblockables
 		var uns = _groupUnblockable.GetEntities();
 		for (int i = 0; i < uns.Length; i++) {
 			uns [i].IsUnblockable(false);
-
 		}
 		_pool.NextPhase ();
 	}
@@ -129,5 +129,13 @@ public class AISetBlockSystem : IReactiveSystem, ISetPool {
 			cost += item.moveCost.cost;
 		}
 		return cost;
+	}
+
+	void DebugPath(Queue<Entity> path){
+		string log = "";
+		foreach (var item in path) {
+			log += item.position.x + "/" + item.position.z + ":" + item.moveCost.cost + "__";
+		}
+		Debug.Log (log);
 	}
 }

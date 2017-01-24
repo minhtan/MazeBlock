@@ -11,6 +11,7 @@ public class Pathfinding {
 	static List<Entity> neighbors;
 	public static Queue<Entity> FindPath(Entity start, Entity end, float D, float D2){
 		frontier.Clear ();
+		start.moveCost.cost = 0f;
 		frontier.Enqueue (start, 0);
 		exploredNodes.Clear ();
 		exploredNodes.Add (start);
